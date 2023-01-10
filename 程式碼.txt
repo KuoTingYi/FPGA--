@@ -1,5 +1,15 @@
-module Final2023(output reg [7:0] DATA_R, DATA_G, DATA_B,output reg [3:0] COMM,output reg COMM1,COMM2, 
-output reg [7:0] seg,output reg [7:0] D,input CLK,Clear, input [3:0] num1,num2, input Enter,output reg beep,output bb);
+module Final2023(
+output reg [7:0] DATA_R, DATA_G, DATA_B, //控制顏色
+output reg [3:0] COMM, 
+output reg COMM1,COMM2, //控制七段顯示器
+output reg [7:0] seg, //七段顯示器
+output reg [7:0] D,
+input CLK,Clear, 
+input [3:0] num1,num2, //十位數、個位數
+input Enter, //輸入完按下enter開始做判斷
+output reg beep, //蜂鳴器
+output bb
+);
 
   bit [2:0] flag;
   bit [2:0] cnt;

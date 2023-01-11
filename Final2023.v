@@ -46,7 +46,7 @@ output reg [7:0] seg,output reg [7:0] D,input CLK,Clear, input [3:0] num1,num2, 
 	 begin
 	  if(Clear) 
 	  begin
-		flag = 3'b000;	//先設置如果clear為1，將輸出設為0000
+		flag = 3'b000;	
 		h=0;
 		beep=0;
 	  end
@@ -56,18 +56,18 @@ output reg [7:0] seg,output reg [7:0] D,input CLK,Clear, input [3:0] num1,num2, 
 	  begin
 			if((num1 == r1)&&(num2 == r2)) 
 			begin
-			flag = 3'b011; //如果clear為0，num等於隨機變數，將輸出設為1111
+			flag = 3'b011; 
 			h=1;
 			beep=1;
 			end
 			else if((num2 == r2)&&(num1 < r1)) 
 			begin
-			flag = 3'b001; //如果輸入的數比隨機變數大，將輸出設為0010
+			flag = 3'b001; 
 			beep=0;
 			end
 			else if((num2 < r2))
 			begin	
-			flag = 3'b001; //如果輸入的數比隨機變數小，將輸出設為0001 
+			flag = 3'b001; 
 			beep=0;
 			end
 			else flag = 3'b010;

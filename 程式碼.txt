@@ -57,39 +57,42 @@ output bb
   begin
    if(Clear) 
    begin
-  flag = 3'b000; //如果clear為1，將輸出設為000
+  flag = 3'b000; //如果clear為1，將圖形設為000 （無圖片）
   h=0; 
   beep=0;
    end
    else
    begin
-   if(Enter == 1)
+   if(Enter == 1) // 輸入完數字後，按下ＥＮＴＥＲ
    begin
    if((num1 == r1)&&(num2 == r2)) 
    begin
-   flag = 3'b011; 
-   h=1;
-   beep=1;
+   flag = 3'b011;   // 如果十位數和個位數和隨機變數一樣，ＦＬＡＧ變為愛心圖案
+   h=1;  // ＨＥＡＲＴ被觸發，顯示愛心圖案
+   beep=1; // ＢＥＥＰ被觸發，蜂鳴器響起
    end
    else if((num2 == r2)&&(num1 < r1)) 
    begin
-   flag = 3'b001; 
+   flag = 3'b001; // 如果個位數和隨機變數一樣，十位數比隨機變數小，ＦＬＡＧ變為像上的箭頭（代表要猜更大的數字）
    beep=0;
    end
    else if((num2 < r2))
    begin 
-   flag = 3'b001;  
+   flag = 3'b001;  // 如果個位數和隨機變數一樣，十位數比隨機變數小，ＦＬＡＧ變為像上的箭頭（代表要猜更大的數字）
    beep=0;
    end
-   else flag = 3'b010;
+   else flag = 3'b010;// 如果個位數和隨機變數一樣，十位數比隨機變數大，ＦＬＡＧ變為像下的箭頭（代表要猜更小的數字）
    end
    if(z==1) 
    begin
-   flag <= 3'b111;
-   beep=1;
+   flag <= 3'b111; // 假設時間倒數計時完畢，ＦＬＡＧ變為叉叉得圖片
+   beep=1; // 蜂鳴器響起
    end
    end
   end
+  
+  
+ // 叉叉圖案 
   
  parameter logic [7:0] Err_Char [7:0]=
     '{8'b01111110,
@@ -100,6 +103,8 @@ output bb
      8'b11011011,
      8'b10111101,
      8'b01111110}; 
+     
+ // 沒有圖案
  parameter logic [7:0] Char [7:0]=
   '{8'b11111111,
   8'b11111111,
@@ -109,6 +114,8 @@ output bb
   8'b11111111,
   8'b11111111,
   8'b11111111};
+  
+ // 向上箭頭
  parameter logic [7:0] U_Char [7:0]=
     '{8'b11110111,
     8'b11111011,
@@ -118,6 +125,8 @@ output bb
    8'b11111101,
    8'b11111011,
    8'b11110111};
+   
+  // 向下箭頭
   parameter logic [7:0] D_Char [7:0]=
      '{8'b11101111,
   8'b11011111,
@@ -128,6 +137,7 @@ output bb
    8'b11011111,
    8'b11101111};
   
+  // 愛心圖案
   parameter logic [7:0] H_Char [7:0]=
      '{8'b11110101,
       8'b11101110,
@@ -138,6 +148,8 @@ output bb
       8'b11101110,
       8'b11110101};
  
+ 
+ // 以下為輸入數字與隨機變數做比較後，會顯示的圖案
   always @(posedge CLK_div)
   begin
   if((flag == 3'b011)||(h==1))
@@ -198,6 +210,7 @@ output bb
  end
   
  
+ // 以下為輸入ＥＮＴＥＲ一次假設沒有猜中數字，則血量會減一格，血量用完，蜂鳴器響起，圖案也會變叉叉圖案
  always@(posedge CLK_2t,posedge Clear)
  begin
    if(Clear)
